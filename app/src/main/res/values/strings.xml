@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">MyBabyApp</string>
     <string name="img_description">image </string>
+
+    <string name="name_selectSheet">成長の記録</string>
+    <string name="name_selectSheet_listView">記録表示画面</string>
+
+
+    <string name="text_height_text">身長</string>
+    <string name="text_height_data">身長データ</string>
+    <string name="text_weight_text">体重</string>
+    <string name="text_weight_data">体重データ</string>
 </resources>

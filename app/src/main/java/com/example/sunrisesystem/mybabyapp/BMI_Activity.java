@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BMI_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private Button record;
+
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,12 @@ public class BMI_Activity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_bmi_);
         record = (Button) findViewById(R.id.record_button);
         record.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        TextView textView = findViewById(R.id.reName);
+        textView.setText(name);
+
     }
 
     //ボタン押下でBMI_Output_Activityへ遷移
@@ -26,22 +35,15 @@ public class BMI_Activity extends AppCompatActivity implements View.OnClickListe
         //身長・体重を入力
         final EditText heightText = findViewById(R.id.reHeight);
         final EditText weightText = findViewById(R.id.reWeight);
-        final EditText nameText = findViewById(R.id.reName);
-
-        //double height = Double.parseDouble(heightText.getText().toString());
-        //double weight = Double.parseDouble(weightText.getText().toString());
 
         //身長・体重のいずれかが未入力の場合
-        if (nameText.getText().toString().equals("")==false &&
-            heightText.getText().toString().equals("") == false &&
+        if (heightText.getText().toString().equals("") == false &&
                 weightText.getText().toString().equals("") == false) {
 
             //身長・体重の数値が入力された場合
             Intent intent = new Intent(this, Output_Activity.class);
             double height = Double.parseDouble(heightText.getText().toString());
             double weight = Double.parseDouble(weightText.getText().toString());
-
-
 
             //　入力身長が 0 以下　999より上の場合
             if ((height <= 0) || (height > 999)) {
@@ -55,7 +57,7 @@ public class BMI_Activity extends AppCompatActivity implements View.OnClickListe
             } else if ((weight >= 1) && (weight <= 999)) {
                 intent.putExtra("Height", height);
                 intent.putExtra("Weight", weight);
-                intent.putExtra("name",nameText.getText().toString());
+                intent.putExtra("name",name);
 
                 startActivity(intent);
 

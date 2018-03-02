@@ -1,5 +1,6 @@
 package com.example.sunrisesystem.mybabyapp;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -18,9 +19,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Map;
 
-public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
+public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener,
+        View.OnClickListener {
 
 
     //カレンダー用
@@ -46,7 +47,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
         cal = Calendar.getInstance();
 
-        MyOpenHelper helper = new MyOpenHelper(this);
+        MyDatabase helper = new MyDatabase(this);
         final EditText nameText = (EditText) findViewById(R.id.nameText);
         final EditText birthText = findViewById(R.id.birthText);
         final EditText birthHeight = findViewById(R.id.birthHeight);
@@ -143,7 +144,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         lockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Top_Activity.class);
+                Intent intent = new Intent(MainActivity.this,ListActivity.class);
                 startActivity(intent);
             }
         });

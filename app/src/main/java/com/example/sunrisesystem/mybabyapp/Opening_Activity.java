@@ -19,6 +19,8 @@ public class Opening_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opening_);
 
+        ImageView imageView1 = findViewById(R.id.imageView1);
+        imageView1.setImageResource(R.drawable.couple_baby_dakko);
 
         //登録ボタンの実装
         View saveButton = (Button) findViewById(R.id.op_button1);
@@ -36,7 +38,7 @@ public class Opening_Activity extends AppCompatActivity {
         bmiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Opening_Activity.this,BMI_Activity.class);
+                Intent intent = new Intent(Opening_Activity.this,BMI_Select.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +48,7 @@ public class Opening_Activity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Opening_Activity.this,Chart_Activity.class);
+                Intent intent = new Intent(Opening_Activity.this,Chart_Select.class);
                 startActivity(intent);
             }
         });
