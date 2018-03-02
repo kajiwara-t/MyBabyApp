@@ -26,19 +26,14 @@ public class BMI_Select extends AppCompatActivity {
 
         Cursor c = db.rawQuery("SELECT * FROM person ", null);
 
-        //Cursor c1 = db.rawQuery(
-                //"SELECT * FROM person INNER JOIN person ON person.name = person.name",null);
-
-        Cursor c1 = db.rawQuery("SELECT DISTINCT name FROM person",null,null);
-
 
         c.moveToFirst();
 
-                String[] from = {"name","_id"};
-                int[] to = {android.R.id.text1,android.R.id.text2};
+                String[] from = {"name"};
+                int[] to = {android.R.id.text1};
 
                 SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                        android.R.layout.simple_list_item_2, c1 , from, to, 0);
+                        android.R.layout.simple_list_item_1, c , from, to, 0);
 
                 listView.setAdapter(adapter);
 
