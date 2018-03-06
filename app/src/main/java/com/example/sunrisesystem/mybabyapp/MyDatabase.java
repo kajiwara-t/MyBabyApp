@@ -4,24 +4,23 @@ package com.example.sunrisesystem.mybabyapp;
  * Created by SUNRISE SYSTEM on 2018/01/31.
  */
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDatabase extends SQLiteOpenHelper {
 
-
+    //データベース名
     private static final String DB_NAME = "person.db";
+
+    //データベースのバージョン指定
     private static final int DB_Version = 1;
 
 
-    private final String CREATE_TABLE_PERSON =
-            "create table person(_id text, search text, name text not null, birthYear text," +
-                    "birthMonth text, birthDay text, height text, weight text, bmi text," +
-                    "dateYear text, dateMonth text, dateDay text);";
+//    private final String CREATE_TABLE_PERSON =
+//            "create table person(_id text, search text, name text not null, birthYear text," +
+//                    "birthMonth text, birthDay text, height text, weight text, bmi text," +
+//                    "dateYear text, dateMonth text, dateDay text);";
 
 
 
@@ -42,12 +41,14 @@ public class MyDatabase extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_Version);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        //テーブル作成
         db.execSQL("CREATE TABLE person" +
                 "(" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
                 ",search text" +          //検索番号
                 ",name text not null" +  //名前
                 ",birthYear text" +       //誕生年

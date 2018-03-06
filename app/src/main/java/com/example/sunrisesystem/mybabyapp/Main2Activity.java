@@ -22,6 +22,7 @@ public class Main2Activity extends AppCompatActivity {
         String text = intent.getStringExtra("name");
         Double textHeight = intent.getDoubleExtra("height",0);
         Double textWeight = intent.getDoubleExtra("weight",0);
+
         TextView textView = findViewById(R.id.textView5);
         textView.setText(text);
 
