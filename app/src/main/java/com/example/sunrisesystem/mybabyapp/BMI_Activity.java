@@ -41,7 +41,7 @@ public class BMI_Activity extends AppCompatActivity implements View.OnClickListe
                 weightText.getText().toString().equals("") == false) {
 
             //身長・体重の数値が入力された場合
-            Intent intent = new Intent(this, Output_Activity.class);
+            Intent intent = new Intent(this, BMI_Output_Activity.class);
             double height = Double.parseDouble(heightText.getText().toString());
             double weight = Double.parseDouble(weightText.getText().toString());
 

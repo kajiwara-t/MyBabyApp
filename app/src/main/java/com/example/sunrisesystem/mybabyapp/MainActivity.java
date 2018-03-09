@@ -36,8 +36,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     int mORf = 0;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +63,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
                 if ((mORf >= 1) && nameText.getText().toString().equals("") == false
                         && birthText.getText().toString().equals("") == false
-                        && birthHeight.getText().toString().equals("")==false
-                        && birthWeight.getText().toString().equals("")==false) {
+                        && birthHeight.getText().toString().equals("") == false
+                        && birthWeight.getText().toString().equals("") == false) {
 
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle("登録確認")
@@ -78,16 +76,17 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                                     String name = nameText.getText().toString();
                                     String date = birthText.getText().toString();
                                     String height = birthHeight.getText().toString();
-                                    String weight= birthWeight.getText().toString();
+                                    String weight = birthWeight.getText().toString();
                                     ContentValues insertValues = new ContentValues();
                                     insertValues.put("name", name);
                                     insertValues.put("birthYear", birth_year);
                                     insertValues.put("birthMonth", birth_month + 1);
                                     insertValues.put("birthDay", birth_day);
-                                    insertValues.put("height",height);
-                                    insertValues.put("weight",weight);
+                                    insertValues.put("height", height);
+                                    insertValues.put("weight", weight);
                                     long id = db.insert("person", name, insertValues);
-                                    Toast.makeText(getApplicationContext(), "登録しました", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "登録しました",
+                                            Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setNegativeButton("いいえ", null)
@@ -107,12 +106,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             public void onClick(View view) {
                 String name = nameText.getText().toString();
                 String date = birthText.getText().toString();
-
-                /*
-                //データベース ALL Delete用
-                db.delete("person",null,null);
-                //使う場合はif(name.equals)から下を一旦　"//"　で囲む
-                */
 
                 if (name.equals("")) {
                     Toast.makeText(MainActivity.this, "削除する名前を入力してください",
@@ -137,17 +130,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                             .setNegativeButton("いいえ", null)
                             .show();
                 }
-            }
-        });
-
-
-        //データベースを閲覧する
-        View lockButton = (Button) findViewById(R.id.lockButton);
-        lockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,ListActivity.class);
-                startActivity(intent);
             }
         });
     }

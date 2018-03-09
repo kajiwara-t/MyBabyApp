@@ -5,48 +5,43 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class BMI_Select extends AppCompatActivity {
 
+    ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bmi__select);
+        setContentView(R.layout.activity_list);
 
-        ListView listView = (ListView) findViewById(R.id.KidsList);
+        listView = (ListView) findViewById(R.id.listView1);
 
         MyDatabase myDatabase = new MyDatabase(this);
         SQLiteDatabase db = myDatabase.getWritableDatabase();
 
-
-        Cursor c = db.rawQuery("SELECT * FROM person ", null);
-
+        Cursor c = db.query(true,"person",new String[]{ "name","_id","height","weight"},
+                null,null,"name",null,null,null);
 
         c.moveToFirst();
 
-                String[] from = {"name"};
-                int[] to = {android.R.id.text1};
-
-                SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-                        android.R.layout.simple_list_item_1, c , from, to, 0);
-
-                listView.setAdapter(adapter);
+        listView.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
+                c, new String[]{
+                MyDatabase.COLUMN_NAME,"_id",MyDatabase.COLUMN_HEIGHT,MyDatabase.COLUMN_WEIGHT},
+                new int[]{android.R.id.text1}, 0));
 
 
-
-
-        //リストの行をクリックすると測定画面に移行
+        //リストの行をクリックするとactivity_bmiに画面遷移
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 ListView listView2 = (ListView) parent;
                 Cursor item = (Cursor) listView2.getItemAtPosition(position);
-                int search_id = item.getInt(item.getColumnIndex("_id"));
                 String search_name = item.getString(item.getColumnIndex("name"));
                 Intent intent = new Intent(BMI_Select.this, BMI_Activity.class);
                 intent.putExtra("name", search_name);

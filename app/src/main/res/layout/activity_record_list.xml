@@ -16,9 +16,18 @@
         android:text="リストから選択してください" />
 
     <ListView
-        android:id="@+id/chartList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:id="@+id/nameList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
         />
+
+    <Button
+        android:id="@+id/MeasurementButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="グラフ画面へ" />
 
 </LinearLayout>

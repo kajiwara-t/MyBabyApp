@@ -23,7 +23,6 @@ public class MyDatabase extends SQLiteOpenHelper {
 //                    "dateYear text, dateMonth text, dateDay text);";
 
 
-
     public static final String TABLE_PERSON = "person";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -34,7 +33,9 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_BMI = "bmi";
     public static final String COLUMN_DATE = "date";
-
+    public static final String COLUMN_NOW_YEAR = "nowYear";
+    public static final String COLUMN_NOW_MONTH = "nowMonth";
+    public static final String COLUMN_NOW_DAY = "nowDay";
 
 
     public MyDatabase(Context context) {
@@ -46,27 +47,28 @@ public class MyDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         //テーブル作成
-        db.execSQL("CREATE TABLE person" +
-                "(" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
-                ",search text" +          //検索番号
-                ",name text not null" +  //名前
-                ",birthYear text" +       //誕生年
-                ",birthMonth text" +      //誕生月
-                ",birthDay text" +        //誕生日
-                ",height text" +          //身長
-                ",weight text" +          //体重
-                ",bmi text" +             //カウプ指数・ローレル指数
-                ",dateYear text" +        //検診日（年）
-                ",dateMonth text" +       //検診日（月）
-                ",dateDay text" +         //検診日（日）
-                ")");
+        db.execSQL("CREATE TABLE person"
+                + "("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + "search text, "          //検索番号
+                + "name text not null, "   //名前
+                + "birthYear text, "        //誕生年
+                + "birthMonth text, "       //誕生月
+                + "birthDay text, "         //誕生日
+                + "height text, "           //身長
+                + "weight text, "           //体重
+                + "bmi text, "              //カウプ指数・ローレル指数
+                + "nowYear text, "         //検診日（年）
+                + "nowMonth text, "        //検診日（月）
+                + "nowDay text "          //検診日（日）
+                + ")");
 
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        @Override
+        public void onUpgrade (SQLiteDatabase db,int oldVersion, int newVersion){
 
 
-            }
         }
+    }
+

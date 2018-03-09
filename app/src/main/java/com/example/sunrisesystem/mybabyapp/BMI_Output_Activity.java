@@ -13,12 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
-public class Output_Activity extends AppCompatActivity {
+public class BMI_Output_Activity extends AppCompatActivity {
 
     double data[] = new double[2];
     double bmi;
     String name;
+
+
+    //現在の日付を取得
+    final Calendar calendar = Calendar.getInstance();
+    final int nowYear = calendar.get(Calendar.YEAR);
+    final int nowMonth = calendar.get(Calendar.MONTH) + 1;
+    final int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
 
 
     @Override
@@ -32,15 +40,14 @@ public class Output_Activity extends AppCompatActivity {
         keisan(data);
 
 
-
         View outputButton = (Button) findViewById(R.id.output_button);
         outputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(Output_Activity.this)
-                        .setTitle("計測結果")
-                        .setMessage("登録しますか？")
-                        .setPositiveButton("はい", new DialogInterface.OnClickListener() {
+               AlertDialog.Builder builder = new AlertDialog.Builder(BMI_Output_Activity.this);
+                        builder.setTitle("計測結果");
+                        builder.setMessage("登録しますか？");
+                        builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 ContentValues insertValues = new ContentValues();
@@ -48,6 +55,9 @@ public class Output_Activity extends AppCompatActivity {
                                 insertValues.put("height",data[0]);
                                 insertValues.put("weight",data[1]);
                                 insertValues.put("bmi",bmi);
+                                insertValues.put("nowYear",nowYear);
+                                insertValues.put("nowMonth",nowMonth);
+                                insertValues.put("nowDay",nowDay);
                                 long id = db.insert("person",name,insertValues);
                                 Toast.makeText(getApplicationContext(),"登録しました",Toast.LENGTH_SHORT).show();
                             }
@@ -124,7 +134,6 @@ public class Output_Activity extends AppCompatActivity {
         textBmi.setText(String.format("%.2f", ex3));
         */
     }
-
 
     //ローレル指数計算
 
