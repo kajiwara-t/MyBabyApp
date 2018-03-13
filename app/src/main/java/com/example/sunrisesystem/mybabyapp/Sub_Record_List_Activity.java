@@ -1,6 +1,8 @@
 package com.example.sunrisesystem.mybabyapp;
 
 
+import android.database.Cursor;
+
 public class Sub_Record_List_Activity {
 
     long id;

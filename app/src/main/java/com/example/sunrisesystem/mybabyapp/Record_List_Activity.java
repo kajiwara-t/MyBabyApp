@@ -10,9 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class Record_List_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String text = intent.getStringExtra("name");
         listView = (ListView) findViewById(R.id.nameList);
 
@@ -37,7 +34,7 @@ public class Record_List_Activity extends AppCompatActivity {
 
 
         MyDatabase myDatabase = new MyDatabase(this);
-        SQLiteDatabase db = myDatabase.getWritableDatabase();
+        final SQLiteDatabase db = myDatabase.getWritableDatabase();
 
         c = db.query("person", new String[]{"name", "_id", "height", "weight", "nowYear",
                         "nowMonth", "nowDay"},
@@ -64,21 +61,23 @@ public class Record_List_Activity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                ListView recordList = (ListView) parent;
+                ListView listView = (ListView) parent;
+                listView.getItemAtPosition(position);
 
-                c.moveToFirst();
+                if (c.moveToFirst()) {
+                    do {
+                        String strName = c.getString(c.getColumnIndex("name"));
+                        String strHeight = c.getString(c.getColumnIndex("height"));
+                        String strWeight = c.getString(c.getColumnIndex("weight"));
 
-                    String strName = c.getString(0);
-                    String strHeight = c.getString(2);
-                    String strWeight = c.getString(3);
-
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
-                    builder.setTitle(strName + "ちゃんの記録");
-                    builder.setMessage("身長" + strHeight + "cm" + "　" + "体重" + strWeight + "kg");
-                    builder.setPositiveButton("OK", null);
-                    builder.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
+                        builder.setTitle(strName + "ちゃんの記録");
+                        builder.setMessage("身長" + strHeight + "cm" + "　" + "体重" + strWeight + "kg");
+                        builder.setPositiveButton("OK", null);
+                        builder.show();
+                    } while (c.moveToNext());
                 }
+            }
         });
 
 
