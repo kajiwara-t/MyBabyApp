@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class Record_List_Activity extends AppCompatActivity {
         boolean setTest = c.moveToLast();
         while (setTest) {
             list.add(new Sub_Record_List_Activity(c.getString(0), c.getString(4),
-                    c.getString(5), c.getString(6)));
+                    c.getString(5), c.getString(6),c.getString(2),c.getString(3)));
             setTest = c.moveToPrevious();
         }
 
@@ -61,22 +64,22 @@ public class Record_List_Activity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                ListView listView = (ListView) parent;
-                listView.getItemAtPosition(position);
 
-                if (c.moveToFirst()) {
-                    do {
-                        String strName = c.getString(c.getColumnIndex("name"));
-                        String strHeight = c.getString(c.getColumnIndex("height"));
-                        String strWeight = c.getString(c.getColumnIndex("weight"));
+                ListView listView1 = (ListView) parent;
+                Sub_Record_List_Activity sub= (Sub_Record_List_Activity) listView1.getItemAtPosition(position);
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
-                        builder.setTitle(strName + "ちゃんの記録");
-                        builder.setMessage("身長" + strHeight + "cm" + "　" + "体重" + strWeight + "kg");
-                        builder.setPositiveButton("OK", null);
-                        builder.show();
-                    } while (c.moveToNext());
-                }
+               // Cursor c = (Cursor) listView.getItemAtPosition(position);
+
+//                    String strName = c.getString(c.getColumnIndex("name"));
+//                    String strHeight = c.getString(c.getColumnIndex("height"));
+//                    String strWeight = c.getString(c.getColumnIndex("weight"));
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
+                    builder.setTitle(sub.getChildName() + "ちゃんの記録");
+                    builder.setMessage("身長" + sub.getChildHeight()+ "cm" + "　" + "体重" + sub.getChildWeight() + "kg");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+
             }
         });
 
