@@ -41,6 +41,23 @@ public class BMI_Cal {
         //体重差表示用　double変換
         double difWeight = difWeight1.doubleValue();
 
+        //ローレル指数計算
+
+    /*
+     BigDecimalを用いていないので、何らかの数値で誤差が出る可能性あり
+     元となるシステムにローレル指数を用いたグラフが見当たらないため、一旦凍結する
+    public void keisan2(double data[]) {
+        Intent intent = getIntent();
+        data[0] = intent.getDoubleExtra("Height", 0); //入力された身長
+        data[1] = intent.getDoubleExtra("Weight", 0); //入力された体重
+        double Rohrer1 = data[0] * data[0] * data[0];
+        double Rohrer2 = data[1] / Rohrer1;
+        double Answer = Rohrer2 * 10000000;
+        //結果表示
+        TextView textBmi = findViewById(R.id.bmiText);
+        textBmi.setText(String.format("%.2f", Answer));
+    }*/
+
         return data;
     }
 }
