@@ -20,11 +20,13 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import static com.example.sunrisesystem.mybabyapp.BMI_Cal.bmiCal;
+
 public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
 
 
-    //カレンダー用
+    //誕生日用カレンダー
     Calendar cal;
     private int birth_year;
     private int birth_month;
@@ -35,6 +37,13 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private RadioButton Male, Female;
     int mORf = 0;
 
+    //現在の日付を取得
+    final Calendar calendar = Calendar.getInstance();
+    final int nowYear = calendar.get(Calendar.YEAR);
+    final int nowMonth = calendar.get(Calendar.MONTH) + 1;
+    final int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+    double data[] = new double[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,15 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                                     String date = birthText.getText().toString();
                                     String height = birthHeight.getText().toString();
                                     String weight = birthWeight.getText().toString();
+
+                                    data[0] = Double.parseDouble(height);
+                                    data[1] = Double.parseDouble(weight);
+
+                                    bmiCal(data);
+
+                                    data[2] = data[2];
+
+                                    int morf = mORf;
                                     ContentValues insertValues = new ContentValues();
                                     insertValues.put("name", name);
                                     insertValues.put("birthYear", birth_year);
@@ -84,6 +102,11 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                                     insertValues.put("birthDay", birth_day);
                                     insertValues.put("height", height);
                                     insertValues.put("weight", weight);
+                                    insertValues.put("mORf", mORf);
+                                    insertValues.put("nowYear", nowYear);
+                                    insertValues.put("nowMonth", nowMonth);
+                                    insertValues.put("nowDay", nowDay);
+                                    insertValues.put("bmi",data[2]);
                                     long id = db.insert("person", name, insertValues);
                                     Toast.makeText(getApplicationContext(), "登録しました",
                                             Toast.LENGTH_SHORT).show();
@@ -97,7 +120,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 }
             }
         });
-
 
         //データベースから削除する
         View deleteButton = (Button) findViewById(R.id.deleteButton);
@@ -118,7 +140,6 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                             .setPositiveButton("はい", new DialogInterface.OnClickListener() {
 
                                 String name = nameText.getText().toString();
-                                //String date= dayText.getText().toString();
 
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

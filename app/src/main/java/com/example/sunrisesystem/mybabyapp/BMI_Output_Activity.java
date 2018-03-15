@@ -12,13 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
+
+import static com.example.sunrisesystem.mybabyapp.BMI_Cal.bmiCal;
 
 public class BMI_Output_Activity extends AppCompatActivity {
 
-    double data[] = new double[2];
-    double bmi;
+    double data[] = new double[3];
     String name;
 
 
@@ -29,45 +29,50 @@ public class BMI_Output_Activity extends AppCompatActivity {
     final int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_output_);
 
-        MyDatabase helper  = new MyDatabase(this);
+        MyDatabase helper = new MyDatabase(this);
         final SQLiteDatabase db = helper.getWritableDatabase();
 
-        keisan(data);
+        Intent intent = getIntent();
+        data[0] = intent.getDoubleExtra("Height", 0);
+        data[1] = intent.getDoubleExtra("Weight", 0);
+        name = intent.getStringExtra("name");
 
+        bmiCal(data);
+
+        bmiResult(data);
 
         View outputButton = (Button) findViewById(R.id.output_button);
         outputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               AlertDialog.Builder builder = new AlertDialog.Builder(BMI_Output_Activity.this);
-                        builder.setTitle("計測結果");
-                        builder.setMessage("登録しますか？");
-                        builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                ContentValues insertValues = new ContentValues();
-                                insertValues.put("name",name);
-                                insertValues.put("height",data[0]);
-                                insertValues.put("weight",data[1]);
-                                insertValues.put("bmi",bmi);
-                                insertValues.put("nowYear",nowYear);
-                                insertValues.put("nowMonth",nowMonth);
-                                insertValues.put("nowDay",nowDay);
-                                long id = db.insert("person",name,insertValues);
-                                Toast.makeText(getApplicationContext(),"登録しました",Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("いいえ",null)
+                AlertDialog.Builder builder = new AlertDialog.Builder(BMI_Output_Activity.this);
+                builder.setTitle("計測結果");
+                builder.setMessage("登録しますか？");
+                builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ContentValues insertValues = new ContentValues();
+                        insertValues.put("name", name);
+                        insertValues.put("height", data[0]);
+                        insertValues.put("weight", data[1]);
+                        insertValues.put("bmi", data[2]);
+                        insertValues.put("nowYear", nowYear);
+                        insertValues.put("nowMonth", nowMonth);
+                        insertValues.put("nowDay", nowDay);
+                        long id = db.insert("person", name, insertValues);
+                        Toast.makeText(getApplicationContext(), "登録しました", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                        .setNegativeButton("いいえ", null)
                         .show();
-
             }
         });
-
     }
 
         /*
@@ -77,39 +82,18 @@ public class BMI_Output_Activity extends AppCompatActivity {
          */
 
     //カウプ指数・適正体重・適正体重との差の計算
-    public void keisan(double data[]) {
+    public void bmiResult(double data[]) {
 
-
-        Intent intent = getIntent();
-        data[0] = intent.getDoubleExtra("Height", 0);
-        data[1] = intent.getDoubleExtra("Weight", 0);
-        name = intent.getStringExtra("name");
-
-        //入力身長(cm)から入力身長(m)へと変換
-        BigDecimal num1 = BigDecimal.valueOf(data[0]); //身長(cm)
-        BigDecimal num2 = BigDecimal.valueOf(0.01);    //身長(m)
-
-        //計算準備
-        BigDecimal bdHeight = num1.multiply(num2);
-        BigDecimal bdWeight = BigDecimal.valueOf(data[1]);
-
-        //BMI計算式　BigDecimal使用
-        BigDecimal bdbmi1 = bdHeight.multiply(bdHeight);
-        BigDecimal bdbmi2 = bdWeight.divide(bdbmi1, 2, BigDecimal.ROUND_HALF_UP);
-        //BMI表示用 double変換
-        bmi = bdbmi2.doubleValue();
-
-
-        //適正体重計算式
-        BigDecimal num22 = BigDecimal.valueOf(22);
-        BigDecimal pbWeight1 = bdbmi1.multiply(num22);
-        //適正体重表示用　double変換
-        double pbWeight = pbWeight1.doubleValue();
-
-        //現在体重と適正体重差の計算式
-        BigDecimal difWeight1 = bdWeight.subtract(pbWeight1);
-        //体重差表示用　double変換
-        double difWeight = difWeight1.doubleValue();
+//        //適正体重計算式
+//        BigDecimal num22 = BigDecimal.valueOf(22);
+//        BigDecimal pbWeight1 = bdbmi1.multiply(num22);
+//        //適正体重表示用　double変換
+//        double pbWeight = pbWeight1.doubleValue();
+//
+//        //現在体重と適正体重差の計算式
+//        BigDecimal difWeight1 = bdWeight.subtract(pbWeight1);
+//        //体重差表示用　double変換
+//        double difWeight = difWeight1.doubleValue();
 
         //結果表示
         TextView textHeight = findViewById(R.id.outHeight); //身長結果
@@ -119,10 +103,10 @@ public class BMI_Output_Activity extends AppCompatActivity {
         textWeight.setText(String.valueOf(data[1]));
 
         TextView textBmi = findViewById(R.id.outKaup); //カウプ結果
-        textBmi.setText(String.format("%.2f", bmi));
+        textBmi.setText(String.format("%.2f", data[2]));
 
         TextView textName = findViewById(R.id.outName);
-        textName.setText(String.format("%s",name));
+        textName.setText(String.format("%s", name));
 
         /* BigDecimalを用いないカウプ指数計算式
         //計算式

@@ -9,20 +9,23 @@ public class Sub_Record_List_Activity {
     private String childName;
     private String childHeight;
     private String childWeight;
-    private String childKaup;
+    private String childBmi;
     private String recordNowYear;
     private String recordNowMonth;
     private String recordNowDay;
+    private String recordMorF;
 
     public Sub_Record_List_Activity(String childName, String recordNowYear, String recordNowMonth,
-                                    String recordNowDay, String childHeight, String childWeight) {
+                                    String recordNowDay, String childHeight, String childWeight,
+                                    String recordMorF, String recordBmi) {
         this.childName = childName;
         this.recordNowYear = recordNowYear;
         this.recordNowMonth = recordNowMonth;
         this.recordNowDay = recordNowDay;
         this.childHeight = childHeight;
         this.childWeight = childWeight;
-        this.childKaup = childKaup;
+        this.childBmi = recordBmi;
+        this.recordMorF=recordMorF;
 
     }
 
@@ -74,11 +77,19 @@ public class Sub_Record_List_Activity {
         this.childWeight = childWeight;
     }
 
-    public String getChildKaup(){
-        return childKaup;
+    public String getRecordBmi(){
+        return childBmi;
     }
 
-    public void setChildKaup(){
-        this.childKaup = childKaup;
+    public void setRecordBmi(){
+        this.childBmi = childBmi;
+    }
+
+    public String getMorF(){
+        return recordMorF;
+    }
+
+    public void setRecordMorF(){
+        this.recordMorF = recordMorF;
     }
 }

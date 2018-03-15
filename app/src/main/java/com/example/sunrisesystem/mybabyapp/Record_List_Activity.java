@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,24 +38,20 @@ public class Record_List_Activity extends AppCompatActivity {
         final SQLiteDatabase db = myDatabase.getWritableDatabase();
 
         c = db.query("person", new String[]{"name", "_id", "height", "weight", "nowYear",
-                        "nowMonth", "nowDay"},
+                        "nowMonth", "nowDay","mORf","bmi"},
                 "name='" + text + "'", null, null, null,
                 null, null);
 
         boolean setTest = c.moveToLast();
         while (setTest) {
             list.add(new Sub_Record_List_Activity(c.getString(0), c.getString(4),
-                    c.getString(5), c.getString(6),c.getString(2),c.getString(3)));
+                    c.getString(5), c.getString(6), c.getString(2), c.getString(3),
+            c.getString(7),c.getString(8)));
             setTest = c.moveToPrevious();
         }
 
         adapter.setSubList(list);
         listView.setAdapter(adapter);
-
-//        listView.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
-//                c, new String[]{
-//                MyDatabase.COLUMN_NAME, "_id", MyDatabase.COLUMN_HEIGHT, MyDatabase.COLUMN_WEIGHT},
-//                new int[]{android.R.id.text1}, 0));
 
 
         //リストを押下するとダイアログ表示
@@ -66,19 +60,14 @@ public class Record_List_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
 
                 ListView listView1 = (ListView) parent;
-                Sub_Record_List_Activity sub= (Sub_Record_List_Activity) listView1.getItemAtPosition(position);
+                Sub_Record_List_Activity sub = (Sub_Record_List_Activity) listView1.getItemAtPosition(position);
 
-               // Cursor c = (Cursor) listView.getItemAtPosition(position);
-
-//                    String strName = c.getString(c.getColumnIndex("name"));
-//                    String strHeight = c.getString(c.getColumnIndex("height"));
-//                    String strWeight = c.getString(c.getColumnIndex("weight"));
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
-                    builder.setTitle(sub.getChildName() + "ちゃんの記録");
-                    builder.setMessage("身長" + sub.getChildHeight()+ "cm" + "　" + "体重" + sub.getChildWeight() + "kg");
-                    builder.setPositiveButton("OK", null);
-                    builder.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
+                builder.setTitle(sub.getChildName() + "ちゃんの記録");
+                builder.setMessage("身長" + sub.getChildHeight() + "cm" + "\n" + "体重" + sub.getChildWeight() + "kg"
+                + "\n"+ "カウプ指数" + sub.getRecordBmi());
+                builder.setPositiveButton("OK", null);
+                builder.show();
 
             }
         });
@@ -89,13 +78,27 @@ public class Record_List_Activity extends AppCompatActivity {
         chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chartIntent = new Intent(Record_List_Activity.this, Chart_Activity.class);
+
                 c.moveToFirst();
-                String chartKeyName = c.getString(0);
-                chartIntent.putExtra("name", chartKeyName);
-                startActivity(chartIntent);
+                int mORf= Integer.parseInt(c.getString(7));
+
+                if(mORf == 1){
+
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Chart_Activity.class);
+                    c.moveToFirst();
+                    String chartKeyName = c.getString(0);
+                    chartIntent.putExtra("name", chartKeyName);
+                    startActivity(chartIntent);
+
+                } else if(mORf == 2) {
+
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Female_Chart_Activity.class);
+                    c.moveToFirst();
+                    String chartKeyName = c.getString(0);
+                    chartIntent.putExtra("name", chartKeyName);
+                    startActivity(chartIntent);
+                }
             }
         });
-
     }
 }

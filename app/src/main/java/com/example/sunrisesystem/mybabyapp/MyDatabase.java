@@ -36,6 +36,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_NOW_YEAR = "nowYear";
     public static final String COLUMN_NOW_MONTH = "nowMonth";
     public static final String COLUMN_NOW_DAY = "nowDay";
+    public static final String COLUMN_MORF = "mORf";
 
 
     public MyDatabase(Context context) {
@@ -60,7 +61,8 @@ public class MyDatabase extends SQLiteOpenHelper {
                 + "bmi text, "              //カウプ指数・ローレル指数
                 + "nowYear text, "         //検診日（年）
                 + "nowMonth text, "        //検診日（月）
-                + "nowDay text "          //検診日（日）
+                + "nowDay text,"          //検診日（日）
+                + "mORf text"             //性別
                 + ")");
 
     }
