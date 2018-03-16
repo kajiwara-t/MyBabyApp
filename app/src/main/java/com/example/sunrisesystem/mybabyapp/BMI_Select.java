@@ -1,8 +1,10 @@
 package com.example.sunrisesystem.mybabyapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +49,28 @@ public class BMI_Select extends AppCompatActivity {
                 intent.putExtra("name", search_name);
                 startActivity(intent);
 
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                ListView bmiLongClick = (ListView) parent;
+                Cursor bmiClickItem = (Cursor) bmiLongClick.getItemAtPosition(position);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(BMI_Select.this);
+                builder.setTitle("削除確認");
+                builder.setMessage("削除しますか？");
+                builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("いいえ",null);
+                builder.show();
+
+                return true;
             }
         });
     }

@@ -1,14 +1,19 @@
 package com.example.sunrisesystem.mybabyapp;
 
+import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 public class List_Activity extends AppCompatActivity {
 
@@ -23,7 +28,7 @@ public class List_Activity extends AppCompatActivity {
 
 
         MyDatabase myDatabase = new MyDatabase(this);
-        SQLiteDatabase db = myDatabase.getWritableDatabase();
+        final SQLiteDatabase db = myDatabase.getWritableDatabase();
 
         Cursor c = db.query(true,"person",new String[]{ "name","_id","height","weight"},
                 null,null,"name",null,null,null);
@@ -36,6 +41,7 @@ public class List_Activity extends AppCompatActivity {
 
 
         //リストの行をクリックすると子供の記録画面に移動
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
@@ -49,7 +55,31 @@ public class List_Activity extends AppCompatActivity {
                 intent.putExtra("height",search_height);
                 intent.putExtra("weight",search_weight);
                 startActivity(intent);
+            }
+        });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                ListView longClick = (ListView) parent;
+                Cursor clickItem = (Cursor) longClick.getItemAtPosition(position);
+                final String deleteName = clickItem.getString(clickItem.getColumnIndex("name"));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(List_Activity.this);
+                        builder.setTitle("削除確認");
+                        builder.setMessage("削除しますか？");
+                        builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(List_Activity.this, "削除しました",
+                                        Toast.LENGTH_SHORT).show();
+                                db.delete("person","name=?",new String[]{deleteName});
+                            }
+                        });
+                        builder.setNegativeButton("いいえ",null);
+                        builder.show();
+
+                return true;
             }
         });
     }
