@@ -84,7 +84,7 @@ public class Record_List_Activity extends AppCompatActivity {
 
                 if(mORf == 1){
 
-                    Intent chartIntent = new Intent(Record_List_Activity.this, Chart_Activity.class);
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Male_Chart_Activity.class);
                     c.moveToFirst();
                     String chartKeyName = c.getString(0);
                     chartIntent.putExtra("name", chartKeyName);
@@ -93,6 +93,34 @@ public class Record_List_Activity extends AppCompatActivity {
                 } else if(mORf == 2) {
 
                     Intent chartIntent = new Intent(Record_List_Activity.this, Female_Chart_Activity.class);
+                    c.moveToFirst();
+                    String chartKeyName = c.getString(0);
+                    chartIntent.putExtra("name", chartKeyName);
+                    startActivity(chartIntent);
+                }
+            }
+        });
+
+        //「グラフ画面へ」ボタンを押下するとChart_Activityに画面遷移
+        View KAUPButton = (Button) findViewById(R.id.KAUPButton);
+        KAUPButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                c.moveToFirst();
+                int mORf= Integer.parseInt(c.getString(7));
+
+                if(mORf == 1){
+
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Male_BMI_Chart.class);
+                    c.moveToFirst();
+                    String chartKeyName = c.getString(0);
+                    chartIntent.putExtra("name", chartKeyName);
+                    startActivity(chartIntent);
+
+                } else if(mORf == 2) {
+
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Female_BMI_Chart.class);
                     c.moveToFirst();
                     String chartKeyName = c.getString(0);
                     chartIntent.putExtra("name", chartKeyName);

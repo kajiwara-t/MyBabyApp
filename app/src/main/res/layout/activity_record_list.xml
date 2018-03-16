@@ -28,6 +28,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="グラフ画面へ" />
+        android:text="身長・体重グラフへ" />
+    <Button
+        android:id="@+id/KAUPButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="カウプ指数グラフへ" />
 
 </LinearLayout>
