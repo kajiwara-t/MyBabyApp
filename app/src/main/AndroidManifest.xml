@@ -28,7 +28,10 @@
         <activity android:name=".Sub_Record_List_Activity" />
         <activity android:name=".Female_Chart_Activity" />
         <activity android:name=".Male_BMI_Chart" />
-        <activity android:name=".Female_BMI_Chart"></activity>
+        <activity android:name=".Female_BMI_Chart" />
+        <activity android:name=".Seichou_Activity" />
+        <activity android:name=".Yobou_Activity" />
+        <activity android:name=".Vaccination_record"></activity>
     </application>
 
 </manifest>

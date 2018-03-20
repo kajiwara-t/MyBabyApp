@@ -41,7 +41,6 @@ public class List_Activity extends AppCompatActivity {
 
 
         //リストの行をクリックすると子供の記録画面に移動
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
@@ -58,6 +57,7 @@ public class List_Activity extends AppCompatActivity {
             }
         });
 
+        //リストの行を長押しすると削除確認のダイアログ表示
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {

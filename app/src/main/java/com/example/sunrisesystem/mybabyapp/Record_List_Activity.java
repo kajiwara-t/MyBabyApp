@@ -73,7 +73,7 @@ public class Record_List_Activity extends AppCompatActivity {
         });
 
 
-        //「グラフ画面へ」ボタンを押下するとChart_Activityに画面遷移
+        //「身長・体重」ボタンを押下するとChart_Activityに画面遷移
         View chartButton = (Button) findViewById(R.id.MeasurementButton);
         chartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class Record_List_Activity extends AppCompatActivity {
             }
         });
 
-        //「グラフ画面へ」ボタンを押下するとChart_Activityに画面遷移
+        //「カウプ指数」ボタンを押下するとChart_Activityに画面遷移
         View KAUPButton = (Button) findViewById(R.id.KAUPButton);
         KAUPButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +126,20 @@ public class Record_List_Activity extends AppCompatActivity {
                     chartIntent.putExtra("name", chartKeyName);
                     startActivity(chartIntent);
                 }
+            }
+        });
+
+        //「予防接種」ボタンを押下するとYobou_Activityに画面遷移
+        View vaccinationButton = (Button) findViewById(R.id.Yobou_button);
+        vaccinationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    Intent chartIntent = new Intent(Record_List_Activity.this, Yobou_Activity.class);
+                    c.moveToFirst();
+                    String chartKeyName = c.getString(0);
+                    chartIntent.putExtra("name", chartKeyName);
+                    startActivity(chartIntent);
             }
         });
     }
