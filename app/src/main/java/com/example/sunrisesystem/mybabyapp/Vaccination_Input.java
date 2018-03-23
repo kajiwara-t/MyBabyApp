@@ -10,6 +10,7 @@ import android.graphics.Shader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -31,6 +32,8 @@ public class Vaccination_Input extends AppCompatActivity {
     String kidsName;
     String vaccinationName;
     String number;
+
+    private TextView textView;
 
     private String spinnerItems[] = {"",
             "B型肝炎",
@@ -70,6 +73,20 @@ public class Vaccination_Input extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner selectedSpinner = (Spinner)parent;
+                String item = (String)selectedSpinner.getSelectedItem();
+                textView.setText(item);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         final View inputButton = (Button)findViewById(R.id.vaccinationInputButton);
         inputButton.setOnClickListener(new View.OnClickListener() {
