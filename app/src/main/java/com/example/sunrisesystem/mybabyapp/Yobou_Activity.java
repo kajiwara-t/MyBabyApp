@@ -23,6 +23,7 @@ public class Yobou_Activity extends AppCompatActivity {
         //予防接種の種類をListに表示
         final ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+
         arrayAdapter.add( "B型肝炎");
         arrayAdapter.add("ロタウイルス");
         arrayAdapter.add("ヒブ");

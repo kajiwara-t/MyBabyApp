@@ -11,21 +11,6 @@
     <string name="text_weight_text">体重</string>
     <string name="text_weight_data">体重データ</string>
 
-    <string-array name="items">
-        <item>B型肝炎</item>
-        <item>ロタウイルス</item>
-        <item>ヒブ</item>
-        <item>小児用肺炎球菌</item>
-        <item>四種混合(DPT-IPV)</item>
-        <item>BCG</item>
-        <item>MR(麻しん、風しん混合)</item>
-        <item>水痘(みずぼうそう)</item>
-        <item>おたふくかぜ</item>
-        <item>日本脳炎</item>
-        <item>インフルエンザ</item>
-        <item>A型肝炎</item>
-        <item>HPV(ヒトパピローマウイルス)</item>
-        <item>髄膜炎菌</item>
-    </string-array>
+
 
 </resources>

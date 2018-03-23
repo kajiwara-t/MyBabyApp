@@ -10,11 +10,15 @@ import android.graphics.Shader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Vaccination_Input extends AppCompatActivity {
@@ -25,6 +29,25 @@ public class Vaccination_Input extends AppCompatActivity {
     private int today_day;
 
     String kidsName;
+    String vaccinationName;
+    String number;
+
+    private String spinnerItems[] = {"",
+            "B型肝炎",
+            "ロタウイルス",
+            "ヒブ",
+            "小児用肺炎球菌",
+            "四種混合(DPT-IPV)",
+            "BCG",
+            "MR(麻しん、風しん混合)",
+            "水痘(みずぼうそう)",
+            "おたふくかぜ",
+            "日本脳炎",
+            "インフルエンザ",
+            "A型肝炎",
+            "HPV(ヒトパピローマウイルス)",
+            "髄膜炎菌"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +56,40 @@ public class Vaccination_Input extends AppCompatActivity {
         today_calendar = Calendar.getInstance();
 
         MyDatabase vaccinationHelper = new MyDatabase(this);
-        final SQLiteDatabase db_vaccitination = vaccinationHelper.getWritableDatabase();
+        final SQLiteDatabase db_vaccination = vaccinationHelper.getWritableDatabase();
 
         Intent intent = getIntent();
         kidsName = intent.getStringExtra("name");
         TextView vaccinationKidsText = (TextView) findViewById(R.id.vaccinationKidsName);
         vaccinationKidsText.setText(kidsName);
 
-        View inputButton = (Button)findViewById(R.id.vaccinationInputButton);
+        Spinner spinner = findViewById(R.id.spinner2);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,spinnerItems);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        final View inputButton = (Button)findViewById(R.id.vaccinationInputButton);
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder vaccinationBuilder = new AlertDialog.Builder(Vaccination_Input.this);
+                final AlertDialog.Builder vaccinationBuilder = new AlertDialog.Builder(Vaccination_Input.this);
                 vaccinationBuilder.setTitle("予防接種");
                 vaccinationBuilder.setMessage("登録しますか?");
                 vaccinationBuilder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ContentValues inputVaccination = new ContentValues();
-                        //inputVaccination.put();
-
+                        inputVaccination.put("name",kidsName);
+                        inputVaccination.put("vaccinationName",vaccinationName);
+                        inputVaccination.put("number",number);
+                        inputVaccination.put("nowYear",today_year);
+                        inputVaccination.put("nowMonth",today_month);
+                        inputVaccination.put("nowDay",today_day);
+                        long id = db_vaccination.insert("vaccination",kidsName,inputVaccination);
+                        Toast.makeText(getApplicationContext(), "登録しました", Toast.LENGTH_SHORT).show();
                     }
                 })
                         .setNegativeButton("いいえ",null)
