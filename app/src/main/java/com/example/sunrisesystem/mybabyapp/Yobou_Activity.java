@@ -1,6 +1,7 @@
 package com.example.sunrisesystem.mybabyapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -63,19 +64,5 @@ public class Yobou_Activity extends AppCompatActivity {
                 builder.show();
             }
         });
-
-        vaccinationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                ListView listLongClick = (ListView) parent;
-                listLongClick.getItemAtPosition(position);
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(Yobou_Activity.this);
-                builder2.setTitle("入力処理");
-                builder2.setMessage(arrayAdapter.getItem(position));
-                builder2.show();
-                return true;
-            }
-        });
-
     }
 }

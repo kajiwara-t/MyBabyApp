@@ -31,7 +31,8 @@
         <activity android:name=".Female_BMI_Chart" />
         <activity android:name=".Seichou_Activity" />
         <activity android:name=".Yobou_Activity" />
-        <activity android:name=".Vaccination_record"></activity>
+        <activity android:name=".Vaccination_record" />
+        <activity android:name=".Vaccination_Input"></activity>
     </application>
 
 </manifest>

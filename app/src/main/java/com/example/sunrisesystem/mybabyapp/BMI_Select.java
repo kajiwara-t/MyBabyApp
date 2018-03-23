@@ -7,50 +7,84 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import java.util.ArrayList;
 
 public class BMI_Select extends AppCompatActivity {
 
     ListView listView;
 
+    private ArrayList<String> arrayList = new ArrayList<>();
+
+    private LayoutInflater listInflater = null;
+
+    Cursor listCursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_bmi_select);
+        listView = (ListView) findViewById(R.id.KidsList);
 
-        listView = (ListView) findViewById(R.id.listView1);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setItemChecked(0,true);
+
 
         MyDatabase myDatabase = new MyDatabase(this);
         SQLiteDatabase db = myDatabase.getWritableDatabase();
 
-        Cursor c = db.query(true,"person",new String[]{ "name","_id","height","weight"},
+        listCursor = db.query(true,"person",new String[]{ "name","_id","height","weight"},
                 null,null,"name",null,null,null);
 
-        c.moveToFirst();
+        listCursor.moveToFirst();
 
-        listView.setAdapter(new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
-                c, new String[]{
-                MyDatabase.COLUMN_NAME,"_id",MyDatabase.COLUMN_HEIGHT,MyDatabase.COLUMN_WEIGHT},
-                new int[]{android.R.id.text1}, 0));
+        do{
+            arrayList.add(listCursor.getString(0));
+        } while (listCursor.moveToNext());
+
+
+       listView.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,arrayList));
 
 
         //リストの行をクリックするとactivity_bmiに画面遷移
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                ListView listView2 = (ListView) parent;
-                Cursor item = (Cursor) listView2.getItemAtPosition(position);
-                String search_name = item.getString(item.getColumnIndex("name"));
-                Intent intent = new Intent(BMI_Select.this, BMI_Activity.class);
-                intent.putExtra("name", search_name);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long l) {
+                ListView listSelectSet = (ListView) parent;
+                final String listSelect = (String) listSelectSet.getItemAtPosition(position);
 
+                final Button bmiButton = (Button)findViewById(R.id.bmiButton);
+                bmiButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        listCursor.moveToFirst();
+                        Intent bmiIntent = new Intent(BMI_Select.this,BMI_Activity.class);
+                        bmiIntent.putExtra("name",listSelect);
+                        startActivity(bmiIntent);
+                    }
+                });
+
+
+                final Button vaccinationButton = (Button)findViewById(R.id.vaccitinationButton);
+                vaccinationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listCursor.moveToFirst();
+                        Intent vaccinationIntent = new Intent(BMI_Select.this,Vaccination_Input.class);
+                        vaccinationIntent.putExtra("name",listSelect);
+                        startActivity(vaccinationIntent);
+                    }
+                });
             }
         });
+
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

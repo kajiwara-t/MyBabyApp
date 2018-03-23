@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp">
 
-
-    <TextView
-        android:id="@+id/textTitle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="リストから選択してください" />
+        android:layout_height="436dp"
+        android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/KidsList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="リストから選択してください" />
 
-</LinearLayout>
+
+        <ListView
+            android:id="@+id/KidsList"
+            android:layout_width="match_parent"
+            android:layout_height="411dp"
+            android:layout_marginTop="12dp"
+            android:choiceMode="singleChoice"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bmiButton"
+            android:layout_width="353dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="カウプ指数測定"/>
+
+        <Button
+            android:id="@+id/vaccitinationButton"
+            android:layout_width="353dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="予防接種入力" />
+
+    </LinearLayout>
+
+    </LinearLayout>

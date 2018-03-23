@@ -61,7 +61,6 @@ public class Record_List_Activity extends AppCompatActivity {
 
                 ListView listView1 = (ListView) parent;
                 Sub_Record_List_Activity sub = (Sub_Record_List_Activity) listView1.getItemAtPosition(position);
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(Record_List_Activity.this);
                 builder.setTitle(sub.getChildName() + "ちゃんの記録");
                 builder.setMessage("身長" + sub.getChildHeight() + "cm" + "\n" + "体重" + sub.getChildWeight() + "kg"

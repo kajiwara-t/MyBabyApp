@@ -37,6 +37,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_NOW_MONTH = "nowMonth";
     public static final String COLUMN_NOW_DAY = "nowDay";
     public static final String COLUMN_MORF = "mORf";
+    
 
 
 
