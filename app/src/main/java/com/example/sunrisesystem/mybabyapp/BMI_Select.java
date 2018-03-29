@@ -86,6 +86,7 @@ public class BMI_Select extends AppCompatActivity {
         });
 
 
+        //リストを長押しすると削除確認ダイアログ表示
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {

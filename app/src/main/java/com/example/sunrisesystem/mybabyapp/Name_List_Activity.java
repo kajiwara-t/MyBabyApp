@@ -1,6 +1,5 @@
 package com.example.sunrisesystem.mybabyapp;
 
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,12 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-public class List_Activity extends AppCompatActivity {
+public class Name_List_Activity extends AppCompatActivity {
 
     private ListView listView;
 
@@ -49,7 +47,7 @@ public class List_Activity extends AppCompatActivity {
                 String search_name = item.getString(item.getColumnIndex("name"));
                 double search_height = item.getDouble(item.getColumnIndex("height"));
                 double search_weight = item.getDouble(item.getColumnIndex("weight"));
-                Intent intent = new Intent(List_Activity.this, Record_List_Activity.class);
+                Intent intent = new Intent(Name_List_Activity.this, Record_List_Activity.class);
                 intent.putExtra("name", search_name);
                 intent.putExtra("height",search_height);
                 intent.putExtra("weight",search_weight);
@@ -65,13 +63,13 @@ public class List_Activity extends AppCompatActivity {
                 Cursor clickItem = (Cursor) longClick.getItemAtPosition(position);
                 final String deleteName = clickItem.getString(clickItem.getColumnIndex("name"));
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(List_Activity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Name_List_Activity.this);
                         builder.setTitle("削除確認");
                         builder.setMessage("削除しますか？");
                         builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(List_Activity.this, "削除しました",
+                                Toast.makeText(Name_List_Activity.this, "削除しました",
                                         Toast.LENGTH_SHORT).show();
                                 db.delete("person","name=?",new String[]{deleteName});
                             }

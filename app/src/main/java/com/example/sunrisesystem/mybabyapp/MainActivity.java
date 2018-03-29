@@ -121,6 +121,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             }
         });
 
+
         //データベースから削除する
         View deleteButton = (Button) findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {

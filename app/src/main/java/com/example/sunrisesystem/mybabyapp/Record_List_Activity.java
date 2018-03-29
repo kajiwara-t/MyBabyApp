@@ -42,6 +42,7 @@ public class Record_List_Activity extends AppCompatActivity {
                 "name='" + text + "'", null, null, null,
                 null, null);
 
+
         boolean setTest = c.moveToLast();
         while (setTest) {
             list.add(new Sub_Record_List_Activity(c.getString(0), c.getString(4),

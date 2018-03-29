@@ -12,6 +12,7 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     //データベース名
     private static final String DB_NAME = "person.db";
+    private static final String DB_NAME2= "vaccination.db";
 
     //データベースのバージョン指定
     private static final int DB_Version = 1;
@@ -37,8 +38,18 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_NOW_MONTH = "nowMonth";
     public static final String COLUMN_NOW_DAY = "nowDay";
     public static final String COLUMN_MORF = "mORf";
-    
+    public static final String COLUMN_AGE = "age";
 
+
+    public static final String TABLE_VACCINATION = "vaccination";
+    public static final String COLUMN_NAME2 = "name";
+    public static final String COLUMN_ID2 = "_id";
+    public static final String COLUMN_VACCINATIONNAME = "vaccinationName";
+    public static final String COLUMN_REQUIREDNUMBER = "requiredNumber";
+    public static final String COLUMN_NUMBER = "number";
+    public static final String COLUMN_VACCINATIONYEAR = "vaccinationYear";
+    public static final String COLUMN_VACCINATIONMONTH = "vaccinationMonth";
+    public static final String COLUMN_VACCINATIONDAY = "vaccinationDay";
 
 
     public MyDatabase(Context context) {
@@ -63,42 +74,24 @@ public class MyDatabase extends SQLiteOpenHelper {
                 + "bmi text, "                             //カウプ指数・ローレル指数
                 + "nowYear text, "                         //検診日（年）
                 + "nowMonth text, "                        //検診日（月）
-                + "nowDay text,"                           //検診日（日）
-                + "mORf text"                              //性別
+                + "nowDay text, "                          //検診日（日）
+                + "mORf text, "                            //性別
+                + "age text "                              //年齢
                 + ")");
 
+        //予防接種テーブル作成
         db.execSQL("CREATE TABLE vaccination"
-                +"("
+                + "("
                 + "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + "name text not null, "                   //受けた子供の名前
-                + "vaccinationName, "                       //予防接種の名前
-                + "required number, "                       //予防接種の必要回数
-                + "number, "                                //予防接種を受けた回数
-                + "nowYear, "                               //予防接種を受けた年
-                + "nowMonth, "                              //予防接種を受けた月
-                + "nowDay"                                  //予防接種を受けた日
+                + "vaccinationName text, "                  //予防接種の名前
+                + "requiredNumber text, "                   //予防接種の必要回数
+                + "number text, "                           //予防接種を受けた回数
+                + "vaccinationYear text, "                  //予防接種を受けた年
+                + "vaccinationMonth text, "                 //予防接種を受けた月
+                + "vaccinationDay text"                     //予防接種を受けた日
                 + ")");
 
-//        //予防接種用テーブル作成
-//        db.execSQL("CREATE TABLE vaccination"
-//        +"("
-//                + "_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-//                + "name text not null, "                  //受けた子供の名前
-//                + "HepatitisB, "                           //B型肝炎
-//                + "RotaVirus, "                            //ロタウイルス
-//                + "Hib, "                                  //ヒブ
-//                + "Pneumococcal Vaccine, "                 //小児用肺炎球菌
-//                + "DPTIPV, "                               //四種混合(DPT-IPV)
-//                + "BCG, "                                  //BCG
-//                + "MR, "                                   //MR(麻しん,風しん混合)
-//                + "ChickenPoxvaricella, "                  //水痘
-//                + "Mumps, "                                //おたふくかぜ
-//                + "JapaneseEncephalitis, "                 //日本脳炎
-//                + "Influenza, "                            //インフルエンザ
-//                + "HepatitisA, "                           //A型肝炎
-//                + "HPV, "                                  //HPV(ヒトパピローマウイルス)
-//                + "NeisseriaMeningitidis"                  //髄膜炎菌
-//                + ")");
     }
 
         @Override

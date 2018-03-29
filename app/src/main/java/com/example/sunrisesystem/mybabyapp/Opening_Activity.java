@@ -43,7 +43,7 @@ public class Opening_Activity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Opening_Activity.this,List_Activity.class);
+                Intent intent = new Intent(Opening_Activity.this,Name_List_Activity.class);
                 startActivity(intent);
             }
         });
